@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackly | Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <h2 class="text-gradient">Client Dashboard</h2>
+            <div class="header-actions">
+                <button onclick="window.location.href='404page.html'" class="notif-btn" title="Notifications">
+                    <span class="material-icons icon-gradient">notifications</span>
+                    <span class="badge">2</span>
+                </button>
+                <button class="profile-btn" title="Profile">
+                    <span class="material-icons icon-gradient">account_circle</span>
+                    <span class="user-email font-mono auth-user-email" id="auth-user-email">ertgaer@w.com</span>
+                </button>
+            </div>
+            <button class="menu-toggle" id="menuToggle"><i class="fa-solid fa-bars-staggered"></i></button>
+        </header>
+
+        <nav class="sidebar" id="sidebar">
+            <div class="side-bar-top">
+                <ul>
+                    <li>
+                        <a href="index.html"><img src="./asset/logo_green.webp" alt="logo" class="dashboard-logo"></a>
+                    </li>
+                    <li class="sidebar-item active" data-tab="overview">
+                        <span class="material-icons">dashboard</span>Personal Overview
+                    </li>
+                    <li class="sidebar-item" data-tab="security">
+                        <span class="material-icons">security</span>My Security
+                    </li>
+                    <li class="sidebar-item" data-tab="reports">
+                        <span class="material-icons">analytics</span>Scan Reports
+                    </li>
+                    <li class="sidebar-item" data-tab="account">
+                        <span class="material-icons">settings</span>Account
+                    </li>
+                </ul>
+            </div>
+            <div class="side-bar-mid">
+                <button onclick="window.location.href='404page.html'" class="notif-btn" title="Notifications">
+                    <div> <span class="material-icons icon-gradient">notifications</span> </div>
+                    <span class="badge">3</span>
+                    <div class="notify-txt">Notification</div>
+                </button>
+                <button class="profile-btn" id="user-profile-btn" title="Access Profile">
+                    <h3>User:</h3>
+                    <div>
+                        <span class="material-icons icon-gradient">account_circle</span>
+                        <span class="user-email font-mono auth-user-email" id="profile-email">ertgaer@w.com</span>
+                    </div>
+                </button>
+            </div>
+            <div class="side-bar-bottom">
+                <a href="index.html" class="btn btn-outline">Back To Home</a>
+                <a href="index.html" class="btn btn-danger" onclick="sessionStorage.clear()">Logout</a>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <section id="overview" class="content-section active">
+                <h1 class="sec-head" style="margin-bottom: 20px;">Welcome back to your Dashboard</h1>
+                <div class="sections-grid">
+                    <div class="stat-card">
+                        <span class="material-icons stat-icon" style="color: var(--neon-green);">verified_user</span>
+                        <div class="stat-number">95</div>
+                        <div class="stat-label">Security Score %</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="material-icons stat-icon" style="color: #ff3333;">block</span>
+                        <div class="stat-number">24</div>
+                        <div class="stat-label">Threats Blocked Today</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

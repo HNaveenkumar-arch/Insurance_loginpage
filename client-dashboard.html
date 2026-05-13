@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackly | Client Dashboard</title>
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- AOS CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <style>
+        /* === BASE STYLES === */
+        :root {
+            --bg-main: #0a0b10;
+            --bg-sidebar: #12141c;
+            --bg-card: #1a1d27;
+            --bg-card-hover: #222634;
+            --accent: #00e5ff;
+            --text-light: #ffffff;
+            --text-muted: #8b92a5;
+            --border: #2a2e3d;
+            --danger: #ff4d4d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        .app-layout {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* === SIDEBAR (4 Links + Logout) === */
+        .sidebar {
+            width: 260px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .brand {
+            padding: 30px 24px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand span {
+            color: var(--accent);
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 16px 24px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+            border-right: 3px solid transparent;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent);
+            background: rgba(0, 229, 255, 0.05);
+            border-right: 3px solid var(--accent);
+        }
+
+        .logout-btn {
+            margin-top: auto;
+            color: var(--danger);
+            border-top: 1px solid var(--border);
+            border-right: none;
+        }
+
+        .logout-btn:hover {
+            color: white;
+            background: var(--danger);
+            border-right: none;
+        }
+
+        /* === MAIN CONTENT AREA === */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        /* TOPBAR */
+        .topbar {
+            height: 70px;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            background: rgba(10, 11, 16, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+        }
+
+        .user-email-display {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* CONTENT SECTIONS */
+        .content-container {
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active-sec {
+            display: block;
+        }
+
+        .section-header {
+            margin-bottom: 30px;
+        }
+
+        .section-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+        }
+
+        /* === TWO COLUMN LAYOUT (Left Main, Right Sidebar) === */
+        .two-col-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            /* Left is wider, Right is narrower */
+            gap: 30px;
+        }
+
+        /* UI COMPONENTS */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .stat-card h3 {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        /* Lists & Tables */
+        .activity-list {
+            list-style: none;
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+            align-items: flex-start;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            background: rgba(0, 229, 255, 0.1);
+            color: var(--accent);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: #000;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        @media (max-width: 1024px) {
+            .two-col-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: fixed;
+                transform: translateX(-100%);
+                height: 100%;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .content-container {
+                padding: 20px;
+            }
+        }
+
+        .logo {
+            width: 130px;
+        }
+
+        /* --- NEW UI COMPONENTS --- */
+
+        /* Risk Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-main);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .progress {
+            height: 100%;
+            background: #00ff64;
+            /* Green for low risk */
+            border-radius: 10px;
+        }
+
+        /* Outline Button for Upsells */
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-outline:hover {
+            background: rgba(0, 229, 255, 0.1);
+        }
+
+        /* Upload Dropzone */
+        .upload-dropzone {
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            background: rgba(10, 11, 16, 0.5);
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        .upload-dropzone:hover {
+            border-color: var(--accent);
+            background: rgba(0, 229, 255, 0.02);
+        }
+
+        /* Toggle Switches */
+        .toggle-group {
+            margin-top: 15px;
+        }
+
+        .toggle-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        .toggle-row:last-child {
+            border-bottom: none;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--bg-main);
+            border: 1px solid var(--border);
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 3px;
+            bottom: 3px;
+            background-color: var(--text-muted);
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: rgba(0, 229, 255, 0.2);
+            border-color: var(--accent);
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(20px);
+            background-color: var(--accent);
+        }
+
+        /* 1. Prevent the card from blowing out the grid width */
+        .card {
+            min-width: 0;
+        }
+
+        /* 2. The dedicated wrapper for the chart */
+        .chart-wrapper {
+            position: relative;
+            height: 250px;
+            /* You control the height here */
+            width: 100%;
+            max-width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">
+                <img src="./asset/logo_green.webp" alt="LOGO" loading="lazy" class="logo">
+            </div>
+
+            <nav class="sidebar-menu">
+                <!-- Exactly 4 Sections -->
+                <a class="nav-link active" data-target="sec-dashboard"><span class="material-icons">dashboard</span>
+                    Dashboard</a>
+                <a class="nav-link" data-target="sec-policies"><span class="material-icons">shield</span> My
+                    Policies</a>
+                <a class="nav-link" data-target="sec-claims"><span class="material-icons">assignment</span> Claims &
+                    Docs</a>
+                <a class="nav-link" data-target="sec-settings"><span class="material-icons">settings</span> Settings</a>
+
+                <!-- Spacer to push logout to bottom -->
+                <div style="flex-grow: 1;"></div>
+
+                <!-- Logout Button -->
+                <a href="#" class="nav-link logout-btn" onclick="logout()"><span
+                        class="material-icons">power_settings_new</span> Secure Logout</a>
+            </nav>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+
+            <!-- TOPBAR -->
+            <nav class="topbar">
+                <button class="menu-toggle" onclick="toggleSidebar()"><span class="material-icons">menu</span></button>
+                <div style="flex:1"></div>
+                <div class="user-profile" data-aos="fade-down">
+                    <span class="material-icons">account_circle</span>
+                    <span class="user-email-display" id="display-email">loading...</span>
+                </div>
+            </nav>
+
+            <div class="content-container">
+
+                <!-- SECTION 1: DASHBOARD -->
+                <section id="sec-dashboard" class="content-section active-sec">
+                    <div class="section-header" data-aos="fade-right">
+                        <h1>Overview</h1>
+                        <p>Your comprehensive insurance portfolio at a glance.</p>
+                    </div>
+
+                    <div class="two-col-layout">
+                        <!-- Left Main Content -->
+                        <div class="left-col">
+                            <div class="stat-grid">
+                                <div class="stat-card" data-aos="zoom-in" data-aos-delay="100">
+                                    <h3>Total Coverage</h3>
+                                    <div class="value">$4.2M</div>
+                                </div>
+                                <div class="stat-card" data-aos="zoom-in" data-aos-delay="200">
+                                    <h3>Next Premium</h3>
+                                    <div class="value">$1,250</div>
+                                </div>
+                            </div>
+                            <div class="card" data-aos="fade-up" data-aos-delay="300">
+                                <h3>Coverage Performance (YTD)</h3>
+                                <!-- Use the new wrapper class -->
+                                <div class="chart-wrapper">
+                                    <canvas id="performanceChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Side Content -->
+                        <div class="right-col">
+                            <div class="card" data-aos="fade-left" data-aos-delay="400">
+                                <h3
+                                    style="margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px;">
+                                    Recent Activity</h3>
+                                <ul class="activity-list">
+                                    <li class="activity-item">
+                                        <div class="activity-icon"><span class="material-icons">check_circle</span>
+                                        </div>
+                                        <div>
+                                            <p style="font-size: 0.9rem; font-weight: 500;">Payment Processed</p>
+                                            <p style="font-size: 0.8rem; color: var(--text-muted);">Dec 12, 2026 -
+                                                $1,250.00</p>
+                                        </div>
+                                    </li>
+                                    <li class="activity-item">
+                                        <div class="activity-icon"><span class="material-icons">description</span></div>
+                                        <div>
+                                            <p style="font-size: 0.9rem; font-weight: 500;">Policy Auto-Renewed</p>
+                                            <p style="font-size: 0.8rem; color: var(--text-muted);">Nov 28, 2026 - Cyber
+                                                Shield</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card" data-aos="fade-left" data-aos-delay="500">
+                                <h3>Risk Assessment</h3>
+                                <div class="risk-score">
+                                    <h2 style="color: #00ff64; margin: 10px 0;">Low Risk</h2>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 15%;"></div>
+                                    </div>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">Your
+                                        digital assets are currently highly secure.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 2: POLICIES -->
+                <section id="sec-policies" class="content-section">
+                    <div class="section-header" data-aos="fade-right">
+                        <h1>My Policies</h1>
+                        <p>Manage and review your active coverages.</p>
+                    </div>
+
+                    <div class="two-col-layout">
+                        <div class="left-col">
+                            <div class="card" data-aos="fade-up">
+                                <h3>Enterprise Cyber Shield</h3>
+                                <p style="color: var(--text-muted); margin: 10px 0;">Policy ID: STK-8829-1A</p>
+                                <span
+                                    style="background: rgba(0,255,100,0.1); color: #00ff64; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem;">Active</span>
+                            </div>
+                            <div class="card" data-aos="fade-up" data-aos-delay="100">
+                                <h3>Corporate Liability Coverage</h3>
+                                <p style="color: var(--text-muted); margin: 10px 0;">Policy ID: STK-4490-2B</p>
+                                <span
+                                    style="background: rgba(0,255,100,0.1); color: #00ff64; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem;">Active</span>
+                            </div>
+                            <div class="card" data-aos="fade-up" data-aos-delay="100">
+                                <h3>Notification Preferences</h3>
+                                <div class="toggle-group">
+                                    <div class="toggle-row">
+                                        <span>Email Alerts (Billing & Renewals)</span>
+                                        <label class="switch"><input type="checkbox" checked><span
+                                                class="slider"></span></label>
+                                    </div>
+                                    <div class="toggle-row">
+                                        <span>SMS Security Notifications</span>
+                                        <label class="switch"><input type="checkbox" checked><span
+                                                class="slider"></span></label>
+                                    </div>
+                                    <div class="toggle-row">
+                                        <span>Marketing & Product Updates</span>
+                                        <label class="switch"><input type="checkbox"><span
+                                                class="slider"></span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="right-col">
+                            <div class="card" data-aos="fade-left" data-aos-delay="200">
+                                <h3>Your Agent</h3>
+                                <div style="display: flex; align-items: center; gap: 15px; margin-top: 15px;">
+                                    <div
+                                        style="width: 50px; height: 50px; background: var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                        <span class="material-icons">support_agent</span>
+                                    </div>
+                                    <div>
+                                        <p style="font-weight: 500;">Sarah Jenkins</p>
+                                        <p style="font-size: 0.8rem; color: var(--accent);">Senior Advisor</p>
+                                    </div>
+                                </div>
+                                <button onclick="window.location.href='404page.html'"  class="btn" style="margin-top: 20px;">Contact Support</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 3: CLAIMS & DOCS -->
+                <section id="sec-claims" class="content-section">
+                    <div class="section-header" data-aos="fade-right">
+                        <h1>Claims & Documents</h1>
+                        <p>Track ongoing claims or download tax forms.</p>
+                    </div>
+
+                    <div class="two-col-layout">
+                        <div class="left-col">
+                            <div class="card" style="text-align:center; padding: 40px;" data-aos="zoom-in">
+                                <span class="material-icons"
+                                    style="font-size: 3rem; color: var(--accent);">task_alt</span>
+                                <h3 style="margin: 15px 0 5px 0;">No Active Claims</h3>
+                                <p style="color: var(--text-muted); font-size: 0.9rem;">Your record is currently clear.
+                                </p>
+                                <button onclick="window.location.href='404page.html'" class="btn" style="width: auto; margin-top: 20px;">File a New Claim</button>
+                            </div>
+                            <div class="card" data-aos="fade-up" data-aos-delay="100">
+                                <h3>Upload New Document</h3>
+                                <div class="upload-dropzone">
+                                    <span class="material-icons"
+                                        style="font-size: 2.5rem; color: var(--accent);">cloud_upload</span>
+                                    <p style="margin: 10px 0;">Drag & drop files here, or <span
+                                            style="color: var(--accent); cursor: pointer;">browse</span></p>
+                                    <small style="color: var(--text-muted);">Supports PDF, JPG, PNG (Max 5MB)</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="right-col">
+                            <div class="card" data-aos="fade-left">
+                                <h3>Quick Downloads</h3>
+                                <ul class="activity-list" style="margin-top: 15px;">
+                                    <li class="activity-item" style="cursor: pointer;">
+                                        <span class="material-icons" style="color: var(--danger);">picture_as_pdf</span>
+                                        <div style="flex: 1;">
+                                            <p style="font-size: 0.9rem;">2025_Tax_Form.pdf</p>
+                                        </div>
+                                        <span class="material-icons" style="color: var(--text-muted);">download</span>
+                                    </li>
+                                    <li class="activity-item" style="cursor: pointer;">
+                                        <span class="material-icons" style="color: var(--danger);">picture_as_pdf</span>
+                                        <div style="flex: 1;">
+                                            <p style="font-size: 0.9rem;">Policy_Terms_v2.pdf</p>
+                                        </div>
+                                        <span class="material-icons" style="color: var(--text-muted);">download</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 4: SETTINGS -->
+                <section id="sec-settings" class="content-section">
+                    <div class="section-header" data-aos="fade-right">
+                        <h1>Account Settings</h1>
+                        <p>Manage your profile and security parameters.</p>
+                    </div>
+
+                    <div class="two-col-layout">
+                        <div class="left-col">
+                            <div class="card" data-aos="fade-up">
+                                <h3>Profile Information</h3>
+                                <div style="margin-top: 20px;">
+                                    <label style="font-size: 0.8rem; color: var(--text-muted);">Registered Email</label>
+                                    <div style="background: var(--bg-main); padding: 12px; border-radius: 8px; border: 1px solid var(--border); margin-top: 5px;"
+                                        id="settings-email-display">loading...</div>
+                                </div>
+                                <div style="margin-top: 20px;">
+                                    <label style="font-size: 0.8rem; color: var(--text-muted);">Phone Number</label>
+                                    <div
+                                        style="background: var(--bg-main); padding: 12px; border-radius: 8px; border: 1px solid var(--border); margin-top: 5px;">
+                                        +1 (555) 019-2834</div>
+                                </div>
+                            </div>
+                            <div class="card" data-aos="fade-up" data-aos-delay="100">
+                                <h3>Notification Preferences</h3>
+                                <div class="toggle-group">
+                                    <div class="toggle-row">
+                                        <span>Email Alerts (Billing & Renewals)</span>
+                                        <label class="switch"><input type="checkbox" checked><span
+                                                class="slider"></span></label>
+                                    </div>
+                                    <div class="toggle-row">
+                                        <span>SMS Security Notifications</span>
+                                        <label class="switch"><input type="checkbox" checked><span
+                                                class="slider"></span></label>
+                                    </div>
+                                    <div class="toggle-row">
+                                        <span>Marketing & Product Updates</span>
+                                        <label class="switch"><input type="checkbox"><span
+                                                class="slider"></span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="right-col">
+                            <div class="card" data-aos="fade-left">
+                                <h3>Security Status</h3>
+                                <div
+                                    style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px;">
+                                    <div>
+                                        <p style="font-weight: 500;">Two-Factor Auth</p>
+                                        <p style="font-size: 0.8rem; color: var(--text-muted);">SMS & Email verified</p>
+                                    </div>
+                                    <span
+                                        style="background: rgba(0,255,100,0.1); color: #00ff64; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem;">Enabled</span>
+                                </div>
+                                <button onclick="window.location.href='404page.html'" class="btn"
+                                    style="background: var(--bg-main); border: 1px solid var(--border); color: white; margin-top: 20px;">Change
+                                    Password</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- AOS Script -->
+    <!-- Add this in the <head> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+ // Initialize Chart.js for the Dashboard
+document.addEventListener("DOMContentLoaded", function() {
+    const ctx = document.getElementById('performanceChart').getContext('2d');
+    
+    // Create a subtle gradient for the line chart fill
+    let gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgba(0, 229, 255, 0.4)'); // Neon cyan transparent
+    gradient.addColorStop(1, 'rgba(0, 229, 255, 0.0)');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+            datasets: [{
+                label: 'Asset Value ($)',
+                data: [3.8, 3.9, 3.85, 4.0, 4.1, 4.15, 4.2], 
+                borderColor: '#00e5ff',
+                backgroundColor: gradient,
+                borderWidth: 2,
+                pointBackgroundColor: '#1a1d27',
+                pointBorderColor: '#00e5ff',
+                pointBorderWidth: 2,
+                pointRadius: 4,
+                fill: true,
+                tension: 0.4 
+            }]
+        },
+        options: {
+            // --- CRUCIAL RESPONSIVE SETTINGS ---
+            responsive: true,
+            maintainAspectRatio: false, 
+            // -----------------------------------
+            
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#1a1d27',
+                    titleColor: '#8b92a5',
+                    bodyColor: '#ffffff',
+                    borderColor: '#2a2e3d',
+                    borderWidth: 1,
+                    callbacks: {
+                        label: function(context) {
+                            return '$' + context.raw + ' Million';
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    grid: { color: 'rgba(42, 46, 61, 0.5)', drawBorder: false },
+                    ticks: { color: '#8b92a5', callback: function(value) { return '$' + value + 'M'; } }
+                },
+                x: {
+                    grid: { display: false, drawBorder: false },
+                    ticks: { color: '#8b92a5', maxRotation: 45, minRotation: 0 } // Prevents labels from overlapping on small screens
+                }
+            }
+        }
+    });
+});       AOS.init({ duration: 800, once: true });
+
+        // 2. Local Storage Email Retrieval
+        document.addEventListener('DOMContentLoaded', () => {
+            let userEmail = localStorage.getItem('userMail');
+            if (!userEmail) {
+                userEmail = 'client@enterprise-stackly.com';
+            }
+
+            document.getElementById('display-email').innerText = userEmail;
+            document.getElementById('settings-email-display').innerText = userEmail;
+        });
+
+        // 3. SPA Section Toggling Logic
+        const navLinks = document.querySelectorAll('.nav-link:not(.logout-btn)');
+        const sections = document.querySelectorAll('.content-section');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                // Update active state
+                navLinks.forEach(n => n.classList.remove('active'));
+                link.classList.add('active');
+
+                // Switch section
+                sections.forEach(sec => sec.classList.remove('active-sec'));
+                const targetId = link.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active-sec');
+
+                // Refresh AOS
+                setTimeout(() => { AOS.refresh(); }, 50);
+
+                // Close mobile sidebar
+                if (window.innerWidth <= 1024) {
+                    document.getElementById('sidebar').classList.remove('open');
+                }
+            });
+        });
+
+        // 4. Mobile Toggle & Logout
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = 'index.html'; // Adjust to your actual login page
+        }
+    </script>
+</body>
+
+</html>

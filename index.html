@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackly | Secure Insurance Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Visual Section -->
+        <div class="hero-section">
+            <div class="hero-text">
+                <h1>The Future of<br><span>Digital Insurance</span></h1>
+                <p>Next-gen protection for your assets. Encrypted, instant, and reliable.</p>
+            </div>
+        </div>
+
+        <!-- Form Section -->
+        <div class="form-section">
+            <!-- Logo positioned for Mobile Top -->
+            <a href="index.html" class="logo-container">
+                <img src="./asset/logo_green.webp" alt="Stackly Logo">
+            </a>
+
+            <div class="login-card">
+                <!-- LOGIN FORM -->
+                <div id="login-form">
+                    <h2>Login</h2>
+                    <p class="subtitle">Access your secure dashboard</p>
+
+                    <div class="input-group">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" placeholder="Email Address" id="login-email">
+                        <span class="error-msg" id="login-email-error">Invalid email format</span>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" placeholder="Password" id="login-pass">
+                        <i class="fa-solid fa-eye-slash toggle-pass" id="eye-icon" onclick="togglePasswordVisibility()"></i>
+                        <span class="error-msg" id="login-pass-error">Minimum 8 characters</span>
+                    </div>
+
+                    <div class="role-selector">
+                        <label>Login as:</label>
+                        <div class="select-wrapper">
+                            <select id="role-select">
+                                <option value="client">Policyholder (Client)</option>
+                                <option value="agent">Insurance Agent</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="login-btn" onclick="validateLogin()">Authorize Access</button>
+
+                    <div class="footer-links">
+                        <p>Need a secure account? <a href="#" onclick="toggleForm()">Sign Up</a></p>
+                    </div>
+                </div>
+
+                <!-- SIGN UP FORM -->
+                <div id="signup-form" class="hidden">
+                    <h2>Sign Up</h2>
+                    <p class="subtitle">Start your protection journey</p>
+                    <div class="input-group">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" placeholder="Full Name" id="reg-name">
+                        <span class="error-msg" id="reg-name-error">Name is required</span>
+                    </div>
+                    <div class="input-group">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" placeholder="Email Address" id="reg-email">
+                        <span class="error-msg" id="reg-email-error">Valid email required</span>
+                    </div>
+                    <div class="input-group">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" placeholder="Create Password" id="reg-pass">
+                        <span class="error-msg" id="reg-pass-error">Min 8 characters</span>
+                    </div>
+                    <button class="login-btn" onclick="validateSignUp()">Create Account</button>
+                    <div class="footer-links">
+                        <p>Already protected? <a href="#" onclick="toggleForm()">Back to Login</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
