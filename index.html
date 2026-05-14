@@ -7,12 +7,13 @@
     <title>Stackly | Secure Insurance Portal</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="container">
         <div class="hero-section">
-            <div class="hero-text">
+            <div class="hero-text" data-aos="fade-right" data-aos-delay="200">
                 <h1>The Future of<br><span>Digital Insurance</span></h1>
                 <p>Next-gen protection for your assets. Encrypted, instant, and reliable.</p>
             </div>
@@ -21,7 +22,7 @@
             <a href="index.html" class="logo-container">
                 <img src="./asset/logo_green.webp" alt="Stackly Logo">
             </a>
-            <div class="login-card">
+            <div class="login-card" data-aos="zoom-in" data-aos-delay="400">
                 <div id="login-form">
                     <h2>Login</h2>
                     <p class="subtitle">Access your secure dashboard</p>
@@ -79,6 +80,13 @@
         </div>
     </div>
     <script src="script.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000, 
+            once: true,     
+        });
+    </script>
 </body>
 
 </html>
