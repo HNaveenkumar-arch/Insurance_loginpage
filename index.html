@@ -1,45 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stackly | Secure Insurance Portal</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <div class="container">
+        <!-- High-End Dark Hero Section -->
         <div class="hero-section">
-            <div class="hero-text" data-aos="fade-right" data-aos-delay="200">
-                <h1>The Future of<br><span>Digital Insurance</span></h1>
-                <p>Next-gen protection for your assets. Encrypted, instant, and reliable.</p>
+            <div class="bg-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+            </div>
+            <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+                <div class="brand">
+                    <i class="fa-solid fa-layer-group"></i> Stackly
+                </div>
+                <h1>Modern protection<br>for a modern world.</h1>
+                <p>Access your policies, file claims instantly, and manage your assets with bank-grade security and unparalleled ease.</p>
+                
+                <div class="hero-features">
+                    <div class="feature-item">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span>256-bit Encryption</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span>24/7 Agent Support</span>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- Sleek Dark Form Section -->
         <div class="form-section">
-            <a href="index.html" class="logo-container">
-                <img src="./asset/logo_green.webp" alt="Stackly Logo">
-            </a>
-            <div class="login-card" data-aos="zoom-in" data-aos-delay="400">
+            <div class="login-card" data-aos="fade-left" data-aos-delay="200" data-aos-duration="1000">
+                <!-- LOGIN FORM -->
                 <div id="login-form">
-                    <h2>Login</h2>
-                    <p class="subtitle">Access your secure dashboard</p>
+                    <h2>Welcome back</h2>
+                    <p class="subtitle">Please enter your details to sign in.</p>
+                    
                     <div class="input-group">
-                        <i class="fa-solid fa-envelope"></i>
-                        <input type="email" placeholder="Email Address" id="login-email">
+                        <label>Email</label>
+                        <div class="input-wrapper">
+                            <i class="fa-regular fa-envelope"></i>
+                            <input type="email" placeholder="Enter your email" id="login-email">
+                        </div>
                         <span class="error-msg" id="login-email-error">Invalid email format</span>
                     </div>
+
                     <div class="input-group">
-                        <i class="fa-solid fa-lock"></i>
-                        <input type="password" placeholder="Password" id="login-pass">
-                        <i class="fa-solid fa-eye-slash toggle-pass" id="eye-icon"
-                            onclick="togglePasswordVisibility()"></i>
+                        <label>Password</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" placeholder="••••••••" id="login-pass">
+                            <i class="fa-regular fa-eye-slash toggle-pass" id="eye-icon" onclick="togglePasswordVisibility()"></i>
+                        </div>
                         <span class="error-msg" id="login-pass-error">Minimum 8 characters</span>
                     </div>
-                    <div class="role-selector">
-                        <label>Login as:</label>
+
+                    <div class="form-utils">
+                        <label class="checkbox-container">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                            Remember me
+                        </label>
+                        <a href="#" class="forgot-link">Forgot password?</a>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Account Type</label>
                         <div class="select-wrapper">
                             <select id="role-select">
                                 <option value="client">Policyholder (Client)</option>
@@ -47,46 +85,64 @@
                             </select>
                         </div>
                     </div>
-                    <button class="login-btn" onclick="validateLogin()">Authorize Access</button>
 
-                    <div class="footer-links">
-                        <p>Need a secure account? <a href="#" onclick="toggleForm()">Sign Up</a></p>
+                    <button class="login-btn" onclick="validateLogin()">Sign In</button>
+
+                    <div class="divider"><span>or sign in with</span></div>
+
+                    <div class="social-login">
+                        <button class="social-btn"><i class="fa-brands fa-google"></i> Google</button>
+                        <button class="social-btn"><i class="fa-brands fa-apple"></i> Apple</button>
                     </div>
+
+                    <p class="switch-form">Don't have an account? <a href="#" onclick="toggleForm()">Sign up</a></p>
                 </div>
+
+                <!-- SIGN UP FORM -->
                 <div id="signup-form" class="hidden">
-                    <h2>Sign Up</h2>
-                    <p class="subtitle">Start your protection journey</p>
+                    <h2>Create an account</h2>
+                    <p class="subtitle">Start your journey with Stackly today.</p>
+                    
                     <div class="input-group">
-                        <i class="fa-solid fa-user"></i>
-                        <input type="text" placeholder="Full Name" id="reg-name">
+                        <label>Full Name</label>
+                        <div class="input-wrapper">
+                            <i class="fa-regular fa-user"></i>
+                            <input type="text" placeholder="John Doe" id="reg-name">
+                        </div>
                         <span class="error-msg" id="reg-name-error">Name is required</span>
                     </div>
+
                     <div class="input-group">
-                        <i class="fa-solid fa-envelope"></i>
-                        <input type="email" placeholder="Email Address" id="reg-email">
+                        <label>Email</label>
+                        <div class="input-wrapper">
+                            <i class="fa-regular fa-envelope"></i>
+                            <input type="email" placeholder="Enter your email" id="reg-email">
+                        </div>
                         <span class="error-msg" id="reg-email-error">Valid email required</span>
                     </div>
+
                     <div class="input-group">
-                        <i class="fa-solid fa-lock"></i>
-                        <input type="password" placeholder="Create Password" id="reg-pass">
+                        <label>Password</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" placeholder="Create a password" id="reg-pass">
+                        </div>
                         <span class="error-msg" id="reg-pass-error">Min 8 characters</span>
                     </div>
+
                     <button class="login-btn" onclick="validateSignUp()">Create Account</button>
-                    <div class="footer-links">
-                        <p>Already protected? <a href="#" onclick="toggleForm()">Back to Login</a></p>
-                    </div>
+                    
+                    <p class="switch-form">Already have an account? <a href="#" onclick="toggleForm()">Log in</a></p>
                 </div>
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
     <script>
-        AOS.init({
-            duration: 1000, 
-            once: true,     
-        });
+        AOS.init({ duration: 800, once: true });
     </script>
 </body>
-
 </html>

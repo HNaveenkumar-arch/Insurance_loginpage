@@ -8,12 +8,14 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 function validateField(id, errorId, condition) {
     const field = document.getElementById(id);
     const error = document.getElementById(errorId);
+    
+    // Updated border colors for the dark/neon theme
     if (condition) {
-        field.style.borderColor = '#222';
+        field.style.borderColor = '#27272a'; // Default dark border
         error.style.display = 'none';
         return true;
     } else {
-        field.style.borderColor = '#ff3333';
+        field.style.borderColor = '#ef4444'; // Red error border
         error.style.display = 'block';
         return false;
     }
@@ -42,17 +44,17 @@ function validateLogin() {
 
     if (eV && pV) {
         localStorage.setItem("userMail", email);
-        btn.innerHTML = `<div class="spinner"></div> Authorizing...`;
+        btn.innerHTML = `<div class="spinner"></div> Signing In...`;
         btn.disabled = true;
-        if (role == 'agent') {
-            window.location.href = 'agent-dashboard.html'
-        }
-        else if (role == 'client') {
-            window.location.href = 'client-dashboard.html'
-        }
-        // setTimeout(() => {
-        //     window.location.href = `dashboard.html?role=${role}`;
-        // }, 1200);
+        
+        // Simulating the API/Auth delay
+        setTimeout(() => {
+            if (role == 'agent') {
+                window.location.href = 'agent-dashboard.html';
+            } else if (role == 'client') {
+                window.location.href = 'client-dashboard.html';
+            }
+        }, 1000);
     }
 }
 
@@ -68,5 +70,9 @@ function validateSignUp() {
     if (nV && eV && pV) {
         alert("Account Securely Created!");
         toggleForm();
+        // Reset form fields
+        document.getElementById('reg-name').value = '';
+        document.getElementById('reg-email').value = '';
+        document.getElementById('reg-pass').value = '';
     }
 }
