@@ -8,14 +8,12 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 function validateField(id, errorId, condition) {
     const field = document.getElementById(id);
     const error = document.getElementById(errorId);
-    
-    // Updated border colors for the dark/neon theme
     if (condition) {
-        field.style.borderColor = '#27272a'; // Default dark border
+        field.style.borderColor = '#27272a';
         error.style.display = 'none';
         return true;
     } else {
-        field.style.borderColor = '#ef4444'; // Red error border
+        field.style.borderColor = '#ef4444';
         error.style.display = 'block';
         return false;
     }
@@ -46,8 +44,6 @@ function validateLogin() {
         localStorage.setItem("userMail", email);
         btn.innerHTML = `<div class="spinner"></div> Signing In...`;
         btn.disabled = true;
-        
-        // Simulating the API/Auth delay
         setTimeout(() => {
             if (role == 'agent') {
                 window.location.href = 'agent-dashboard.html';
@@ -62,17 +58,17 @@ function validateSignUp() {
     const name = document.getElementById('reg-name').value;
     const email = document.getElementById('reg-email').value;
     const pass = document.getElementById('reg-pass').value;
-
+    const confirmPass = document.getElementById('reg-pass-confirm').value;
     const nV = validateField('reg-name', 'reg-name-error', name.trim() !== "");
     const eV = validateField('reg-email', 'reg-email-error', emailRegex.test(email));
     const pV = validateField('reg-pass', 'reg-pass-error', pass.length >= 8);
-
-    if (nV && eV && pV) {
+    const cpV = validateField('reg-pass-confirm', 'reg-pass-confirm-error', confirmPass === pass && confirmPass.length > 0);
+    if (nV && eV && pV && cpV) {
         alert("Account Securely Created!");
         toggleForm();
-        // Reset form fields
         document.getElementById('reg-name').value = '';
         document.getElementById('reg-email').value = '';
         document.getElementById('reg-pass').value = '';
+        document.getElementById('reg-pass-confirm').value = '';
     }
 }

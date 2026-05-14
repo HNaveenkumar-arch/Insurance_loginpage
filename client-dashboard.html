@@ -22,6 +22,10 @@
             --danger: #ff4d4d;
         }
 
+        .username {
+            color: var(--accent);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -427,6 +431,16 @@
             max-width: 100%;
             margin-top: 20px;
         }
+
+        @media (max-width:478px) {
+            .chart-wrapper {
+                max-width: 250px;
+            }
+
+            .content-container {
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 
@@ -475,7 +489,7 @@
             <div class="content-container">
                 <section id="sec-dashboard" class="content-section active-sec">
                     <div class="section-header" data-aos="fade-right">
-                        <h1>Overview</h1>
+                        <h1>Welcome <span class="username" id="username"></span></h1>
                         <p>Your comprehensive insurance portfolio at a glance.</p>
                     </div>
 
@@ -493,7 +507,7 @@
                             </div>
                             <div class="card" data-aos="fade-up" data-aos-delay="300">
                                 <h3>Coverage Performance (YTD)</h3>
-                                <!-- Use the new wrapper class -->
+
                                 <div class="chart-wrapper">
                                     <canvas id="performanceChart"></canvas>
                                 </div>
@@ -775,17 +789,32 @@
                     }
                 }
             });
-        }); AOS.init({ duration: 800, once: true });
+        });
+        AOS.init({
+            duration: 800, once: true, disable: function () {
+                const maxWidth = 767;
+                return window.innerWidth <= maxWidth;
+            }
+        });
 
         document.addEventListener('DOMContentLoaded', () => {
             let userEmail = localStorage.getItem('userMail');
             if (!userEmail) {
                 userEmail = 'client@enterprise-stackly.com';
             }
-
+            const userName = extractNameFromEmail(userEmail);
             document.getElementById('display-email').innerText = userEmail;
             document.getElementById('settings-email-display').innerText = userEmail;
+            document.getElementById('username').innerText = userName;
+
+            function extractNameFromEmail(email) {
+                if (!email) return 'User';
+                let namePart = email.split('@')[0];
+                namePart = namePart.replace(/[._]/g, ' ');
+                return namePart.replace(/\b\w/g, char => char.toUpperCase());
+            }
         });
+
         const navLinks = document.querySelectorAll('.nav-link:not(.logout-btn)');
         const sections = document.querySelectorAll('.content-section');
 
