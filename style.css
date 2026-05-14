@@ -283,8 +283,8 @@ h2 {
 body {
   background-color: var(--bg-black);
   color: var(--white);
-  height: 100vh;
-  overflow: hidden;
+  /* height: 100vh; */
+  /* overflow: hidden; */
 }
 
 .dashboard-container {
