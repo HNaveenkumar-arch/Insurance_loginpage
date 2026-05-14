@@ -66,12 +66,16 @@
                         <span class="error-msg" id="login-pass-error">Minimum 8 characters</span>
                     </div>
 
-                    <div class="form-utils">
-                        <label class="checkbox-container">
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                            Remember me
-                        </label>
+                    <div class="form-utils" style="align-items: flex-start;">
+                        <div class="remember-wrapper">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="remember-me">
+                                <span class="checkmark"></span>
+                                Remember me
+                            </label>
+                            <span class="error-msg" id="remember-error">You must check this box</span>
+                        </div>
+
                         <a href="./404page.html" class="forgot-link">Forgot password?</a>
                     </div>
 
@@ -91,9 +95,11 @@
 
                     <div class="social-login">
                         <button onclick="window.location.href='404page.html'" class="social-btn"><i
-                                class="fa-brands fa-google"></i> Google</button>
+                                class="fa-brands fa-google"></i> </button>
                         <button onclick="window.location.href='404page.html'" class="social-btn"><i
-                                class="fa-brands fa-apple"></i> Apple</button>
+                                class="fa-brands fa-apple"></i> </button>
+                        <button onclick="window.location.href='404page.html'" class="social-btn"><i
+                                class="fa-brands fa-instagram"></i> </button>
                     </div>
 
                     <p class="switch-form">Don't have an account? <a href="#" onclick="toggleForm()">Sign up</a></p>
