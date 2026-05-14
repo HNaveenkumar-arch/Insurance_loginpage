@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +8,27 @@
   <link rel="stylesheet" href="404paghe.css">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
+
 <body>
   <main class="pagecontent">
-    <!-- Using a div for a neon glow effect background -->
     <div class="glitch-container">
       <h2 class="error-title" data-aos="fade-up" data-aos-delay="200">404</h2>
-      <h3 class="error-subtitle" data-aos="fade-up" data-aos-delay="400">The link is broken or the page moved.</h3>
-      <a href="index.html" class="home-btn" data-aos="fade-up" data-aos-delay="600">Go to Login</a>
+      <h3 class="error-subtitle" data-aos="fade-up" data-aos-delay="400">
+        The link is broken or the page moved.
+      </h3>
+
+
+      <div class="button-group">
+
+        <a href="javascript:history.back()" class="home-btn" data-aos="fade-up" data-aos-delay="600">
+          Go Back
+        </a>
+
+
+        <a href="index.html" class="home-btn login-style" data-aos="fade-up" data-aos-delay="800">
+          Go to Login
+        </a>
+      </div>
     </div>
   </main>
 
@@ -25,4 +40,5 @@
     });
   </script>
 </body>
+
 </html>

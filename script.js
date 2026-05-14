@@ -41,14 +41,14 @@ function validateLogin() {
     const pV = validateField('login-pass', 'login-pass-error', pass.length >= 8);
 
     if (eV && pV) {
-        localStorage.setItem("userMail",email);
+        localStorage.setItem("userMail", email);
         btn.innerHTML = `<div class="spinner"></div> Authorizing...`;
         btn.disabled = true;
-        if(role == 'agent'){
-            window.location.href='agent-dashboard.html'
+        if (role == 'agent') {
+            window.location.href = 'agent-dashboard.html'
         }
-        else if(role == 'client'){
-            window.location.href='client-dashboard.html'
+        else if (role == 'client') {
+            window.location.href = 'client-dashboard.html'
         }
         // setTimeout(() => {
         //     window.location.href = `dashboard.html?role=${role}`;

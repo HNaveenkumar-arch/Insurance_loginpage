@@ -28,8 +28,6 @@ body {
   height: 100vh;
   width: 100vw;
 }
-
-/* HERO SECTION */
 .hero-section {
   flex: 1.2;
   background:
@@ -52,7 +50,6 @@ body {
   text-shadow: 0 0 15px var(--neon-glow);
 }
 
-/* FORM SECTION */
 .form-section {
   flex: 0.8;
   display: flex;
@@ -98,7 +95,6 @@ h2 {
   text-align: center;
 }
 
-/* INPUTS & TOGGLE */
 .input-group {
   margin-bottom: 22px;
   position: relative;
@@ -134,7 +130,6 @@ h2 {
   z-index: 10;
 }
 
-/* UPDATED ROLE SELECTOR WITH ARROW */
 .role-selector {
   width: 100%;
   margin-bottom: 15px;
@@ -157,22 +152,21 @@ h2 {
   border: 1px solid #222;
   border-radius: 12px;
   cursor: pointer;
-  appearance: none; /* Default arrow-a hide pannidum */
+  appearance: none;
   font-size: 1rem;
 }
 .select-wrapper::after {
-  content: '\f107'; /* FontAwesome Chevron-down icon */
-  font-family: 'Font Awesome 6 Free';
+  content: "\f107";
+  font-family: "Font Awesome 6 Free";
   font-weight: 900;
   position: absolute;
   right: 15px;
   top: 50%;
   transform: translateY(-50%);
   color: var(--grey);
-  pointer-events: none; /* Arrow-a click pannalum select open aagum */
+  pointer-events: none;
 }
 
-/* SPINNER */
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -228,7 +222,6 @@ h2 {
   font-weight: 600;
 }
 
-/* --- MOBILE RESPONSIVE FIX --- */
 @media (max-width: 1024px) {
   .container {
     flex-direction: column;
@@ -270,7 +263,6 @@ h2 {
   }
 }
 
-
 :root {
   --bg-black: #050505;
   --dark-card: #121212;
@@ -285,28 +277,26 @@ h2 {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 body {
   background-color: var(--bg-black);
   color: var(--white);
   height: 100vh;
-  overflow: hidden; /* Screen-a thandi scroll aagama fix pannum */
+  overflow: hidden;
 }
 
-/* --- DASHBOARD GRID LAYOUT --- */
 .dashboard-container {
   display: grid;
-  grid-template-columns: 260px 1fr; /* Sidebar fixed width */
-  grid-template-rows: 80px 1fr; /* Header fixed height */
+  grid-template-columns: 260px 1fr;
+  grid-template-rows: 80px 1fr;
   height: 100vh;
-  grid-template-areas: 
+  grid-template-areas:
     "sidebar header"
     "sidebar main";
 }
 
-/* --- HEADER STYLES --- */
 .dashboard-header {
   grid-area: header;
   background: rgba(18, 18, 18, 0.9);
@@ -332,7 +322,8 @@ body {
   align-items: center;
 }
 
-.notif-btn, .profile-btn {
+.notif-btn,
+.profile-btn {
   background: #1a1a1a;
   border: 1px solid #333;
   color: var(--white);
@@ -350,7 +341,6 @@ body {
   box-shadow: 0 0 10px var(--neon-glow);
 }
 
-/* --- SIDEBAR STYLES --- */
 .sidebar {
   grid-area: sidebar;
   background: var(--dark-card);
@@ -366,7 +356,9 @@ body {
   filter: drop-shadow(0 0 5px var(--neon-glow));
 }
 
-.sidebar ul { list-style: none; }
+.sidebar ul {
+  list-style: none;
+}
 
 .sidebar-item {
   padding: 15px;
@@ -380,7 +372,8 @@ body {
   transition: 0.3s;
 }
 
-.sidebar-item:hover, .sidebar-item.active {
+.sidebar-item:hover,
+.sidebar-item.active {
   background: rgba(57, 255, 20, 0.1);
   color: var(--neon-green);
 }
@@ -394,16 +387,18 @@ body {
   padding-top: 20px;
 }
 
-/* --- MAIN CONTENT & WATERMARK FIX --- */
 .main-content {
   grid-area: main;
   padding: 50px;
   overflow-y: auto;
   position: relative;
-  background: radial-gradient(circle at top right, rgba(57, 255, 20, 0.02), transparent);
+  background: radial-gradient(
+    circle at top right,
+    rgba(57, 255, 20, 0.02),
+    transparent
+  );
 }
 
-/* Dashboard Watermark logic from Screenshot (81) */
 .main-content::before {
   content: "STACKLY";
   position: absolute;
@@ -412,7 +407,7 @@ body {
   transform: translate(-50%, -50%) rotate(-15deg);
   font-size: 12rem;
   font-weight: 900;
-  color: rgba(255, 255, 255, 0.02); /* Romba subtle-ah maathiyachu */
+  color: rgba(255, 255, 255, 0.02);
   pointer-events: none;
   z-index: 0;
 }
@@ -425,7 +420,6 @@ body {
   z-index: 1;
 }
 
-/* --- STAT CARDS --- */
 .sections-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -468,67 +462,75 @@ body {
   letter-spacing: 1.5px;
 }
 
-/* --- MOBILE RESPONSIVE --- */
 @media (max-width: 1024px) {
   .dashboard-container {
     grid-template-columns: 1fr;
     grid-template-areas: "header" "main";
   }
-  .sidebar { display: none; }
-  .sections-grid { grid-template-columns: 1fr; }
+  .sidebar {
+    display: none;
+  }
+  .sections-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
-
-/* Floating effect for Hero Text */
 .hero-text {
-    animation: float 6s ease-in-out infinite;
+  animation: float 6s ease-in-out infinite;
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
 }
 
-/* Glowing text effect for the Span */
 .hero-text h1 span {
-    background: linear-gradient(90deg, #007bff, #00ff88, #007bff);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shine 3s linear infinite;
+  background: linear-gradient(90deg, #007bff, #00ff88, #007bff);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 3s linear infinite;
 }
 
 @keyframes shine {
-    to { background-position: 200% center; }
+  to {
+    background-position: 200% center;
+  }
 }
 
-/* Subtle entrance for form inputs */
 .input-group {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .input-group:focus-within {
-    transform: translateX(10px);
+  transform: translateX(10px);
 }
 
-/* Smooth Form Toggle Animation */
 .hidden {
-    display: none;
-    opacity: 0;
-    transform: translateY(20px);
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
 }
 
-#login-form, #signup-form {
-    animation: fadeInForm 0.5s ease forwards;
+#login-form,
+#signup-form {
+  animation: fadeInForm 0.5s ease forwards;
 }
 
 @keyframes fadeInForm {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

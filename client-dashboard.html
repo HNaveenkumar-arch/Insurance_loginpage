@@ -5,16 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stackly | Client Dashboard</title>
-
-    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <!-- AOS CSS -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
     <style>
-        /* === BASE STYLES === */
         :root {
             --bg-main: #0a0b10;
             --bg-sidebar: #12141c;
@@ -46,7 +41,7 @@
             overflow: hidden;
         }
 
-        /* === SIDEBAR (4 Links + Logout) === */
+
         .sidebar {
             width: 260px;
             background-color: var(--bg-sidebar);
@@ -112,7 +107,7 @@
             border-right: none;
         }
 
-        /* === MAIN CONTENT AREA === */
+
         .main-content {
             flex: 1;
             display: flex;
@@ -120,7 +115,7 @@
             overflow-y: auto;
         }
 
-        /* TOPBAR */
+
         .topbar {
             height: 70px;
             padding: 0 40px;
@@ -151,7 +146,7 @@
             font-weight: 500;
         }
 
-        /* CONTENT SECTIONS */
+
         .content-container {
             padding: 40px;
             max-width: 1400px;
@@ -181,15 +176,14 @@
             color: var(--text-muted);
         }
 
-        /* === TWO COLUMN LAYOUT (Left Main, Right Sidebar) === */
+
         .two-col-layout {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            /* Left is wider, Right is narrower */
             gap: 30px;
         }
 
-        /* UI COMPONENTS */
+
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -225,7 +219,7 @@
             font-weight: 700;
         }
 
-        /* Lists & Tables */
+
         .activity-list {
             list-style: none;
         }
@@ -266,7 +260,7 @@
             transform: translateY(-2px);
         }
 
-        /* Mobile Toggle */
+
         .menu-toggle {
             display: none;
             background: none;
@@ -308,9 +302,9 @@
             width: 130px;
         }
 
-        /* --- NEW UI COMPONENTS --- */
 
-        /* Risk Progress Bar */
+
+
         .progress-bar {
             width: 100%;
             height: 8px;
@@ -324,11 +318,10 @@
         .progress {
             height: 100%;
             background: #00ff64;
-            /* Green for low risk */
             border-radius: 10px;
         }
 
-        /* Outline Button for Upsells */
+
         .btn-outline {
             background: transparent;
             border: 1px solid var(--accent);
@@ -339,7 +332,7 @@
             background: rgba(0, 229, 255, 0.1);
         }
 
-        /* Upload Dropzone */
+
         .upload-dropzone {
             border: 2px dashed var(--border);
             border-radius: 12px;
@@ -355,7 +348,7 @@
             background: rgba(0, 229, 255, 0.02);
         }
 
-        /* Toggle Switches */
+
         .toggle-group {
             margin-top: 15px;
         }
@@ -421,16 +414,15 @@
             background-color: var(--accent);
         }
 
-        /* 1. Prevent the card from blowing out the grid width */
+
         .card {
             min-width: 0;
         }
 
-        /* 2. The dedicated wrapper for the chart */
+
         .chart-wrapper {
             position: relative;
             height: 250px;
-            /* You control the height here */
             width: 100%;
             max-width: 100%;
             margin-top: 20px;
@@ -442,14 +434,14 @@
 
     <div class="app-layout">
 
-        <!-- SIDEBAR -->
+
         <aside class="sidebar" id="sidebar">
             <div class="brand">
                 <img src="./asset/logo_green.webp" alt="LOGO" loading="lazy" class="logo">
             </div>
 
             <nav class="sidebar-menu">
-                <!-- Exactly 4 Sections -->
+
                 <a class="nav-link active" data-target="sec-dashboard"><span class="material-icons">dashboard</span>
                     Dashboard</a>
                 <a class="nav-link" data-target="sec-policies"><span class="material-icons">shield</span> My
@@ -458,19 +450,19 @@
                     Docs</a>
                 <a class="nav-link" data-target="sec-settings"><span class="material-icons">settings</span> Settings</a>
 
-                <!-- Spacer to push logout to bottom -->
+
                 <div style="flex-grow: 1;"></div>
 
-                <!-- Logout Button -->
+
                 <a href="#" class="nav-link logout-btn" onclick="logout()"><span
                         class="material-icons">power_settings_new</span> Secure Logout</a>
             </nav>
         </aside>
 
-        <!-- MAIN CONTENT -->
+
         <main class="main-content">
 
-            <!-- TOPBAR -->
+
             <nav class="topbar">
                 <button class="menu-toggle" onclick="toggleSidebar()"><span class="material-icons">menu</span></button>
                 <div style="flex:1"></div>
@@ -481,8 +473,6 @@
             </nav>
 
             <div class="content-container">
-
-                <!-- SECTION 1: DASHBOARD -->
                 <section id="sec-dashboard" class="content-section active-sec">
                     <div class="section-header" data-aos="fade-right">
                         <h1>Overview</h1>
@@ -490,7 +480,6 @@
                     </div>
 
                     <div class="two-col-layout">
-                        <!-- Left Main Content -->
                         <div class="left-col">
                             <div class="stat-grid">
                                 <div class="stat-card" data-aos="zoom-in" data-aos-delay="100">
@@ -510,8 +499,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Right Side Content -->
                         <div class="right-col">
                             <div class="card" data-aos="fade-left" data-aos-delay="400">
                                 <h3
@@ -551,8 +538,6 @@
                         </div>
                     </div>
                 </section>
-
-                <!-- SECTION 2: POLICIES -->
                 <section id="sec-policies" class="content-section">
                     <div class="section-header" data-aos="fade-right">
                         <h1>My Policies</h1>
@@ -608,13 +593,12 @@
                                         <p style="font-size: 0.8rem; color: var(--accent);">Senior Advisor</p>
                                     </div>
                                 </div>
-                                <button onclick="window.location.href='404page.html'"  class="btn" style="margin-top: 20px;">Contact Support</button>
+                                <button onclick="window.location.href='404page.html'" class="btn"
+                                    style="margin-top: 20px;">Contact Support</button>
                             </div>
                         </div>
                     </div>
                 </section>
-
-                <!-- SECTION 3: CLAIMS & DOCS -->
                 <section id="sec-claims" class="content-section">
                     <div class="section-header" data-aos="fade-right">
                         <h1>Claims & Documents</h1>
@@ -629,7 +613,8 @@
                                 <h3 style="margin: 15px 0 5px 0;">No Active Claims</h3>
                                 <p style="color: var(--text-muted); font-size: 0.9rem;">Your record is currently clear.
                                 </p>
-                                <button onclick="window.location.href='404page.html'" class="btn" style="width: auto; margin-top: 20px;">File a New Claim</button>
+                                <button onclick="window.location.href='404page.html'" class="btn"
+                                    style="width: auto; margin-top: 20px;">File a New Claim</button>
                             </div>
                             <div class="card" data-aos="fade-up" data-aos-delay="100">
                                 <h3>Upload New Document</h3>
@@ -666,8 +651,6 @@
                         </div>
                     </div>
                 </section>
-
-                <!-- SECTION 4: SETTINGS -->
                 <section id="sec-settings" class="content-section">
                     <div class="section-header" data-aos="fade-right">
                         <h1>Account Settings</h1>
@@ -735,75 +718,65 @@
             </div>
         </main>
     </div>
-
-    <!-- AOS Script -->
-    <!-- Add this in the <head> -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
- // Initialize Chart.js for the Dashboard
-document.addEventListener("DOMContentLoaded", function() {
-    const ctx = document.getElementById('performanceChart').getContext('2d');
-    
-    // Create a subtle gradient for the line chart fill
-    let gradient = ctx.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, 'rgba(0, 229, 255, 0.4)'); // Neon cyan transparent
-    gradient.addColorStop(1, 'rgba(0, 229, 255, 0.0)');
+        document.addEventListener("DOMContentLoaded", function () {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            let gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(0, 229, 255, 0.4)');
+            gradient.addColorStop(1, 'rgba(0, 229, 255, 0.0)');
 
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-            datasets: [{
-                label: 'Asset Value ($)',
-                data: [3.8, 3.9, 3.85, 4.0, 4.1, 4.15, 4.2], 
-                borderColor: '#00e5ff',
-                backgroundColor: gradient,
-                borderWidth: 2,
-                pointBackgroundColor: '#1a1d27',
-                pointBorderColor: '#00e5ff',
-                pointBorderWidth: 2,
-                pointRadius: 4,
-                fill: true,
-                tension: 0.4 
-            }]
-        },
-        options: {
-            // --- CRUCIAL RESPONSIVE SETTINGS ---
-            responsive: true,
-            maintainAspectRatio: false, 
-            // -----------------------------------
-            
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    backgroundColor: '#1a1d27',
-                    titleColor: '#8b92a5',
-                    bodyColor: '#ffffff',
-                    borderColor: '#2a2e3d',
-                    borderWidth: 1,
-                    callbacks: {
-                        label: function(context) {
-                            return '$' + context.raw + ' Million';
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                    datasets: [{
+                        label: 'Asset Value ($)',
+                        data: [3.8, 3.9, 3.85, 4.0, 4.1, 4.15, 4.2],
+                        borderColor: '#00e5ff',
+                        backgroundColor: gradient,
+                        borderWidth: 2,
+                        pointBackgroundColor: '#1a1d27',
+                        pointBorderColor: '#00e5ff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1a1d27',
+                            titleColor: '#8b92a5',
+                            bodyColor: '#ffffff',
+                            borderColor: '#2a2e3d',
+                            borderWidth: 1,
+                            callbacks: {
+                                label: function (context) {
+                                    return '$' + context.raw + ' Million';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: { color: 'rgba(42, 46, 61, 0.5)', drawBorder: false },
+                            ticks: { color: '#8b92a5', callback: function (value) { return '$' + value + 'M'; } }
+                        },
+                        x: {
+                            grid: { display: false, drawBorder: false },
+                            ticks: { color: '#8b92a5', maxRotation: 45, minRotation: 0 }
                         }
                     }
                 }
-            },
-            scales: {
-                y: {
-                    grid: { color: 'rgba(42, 46, 61, 0.5)', drawBorder: false },
-                    ticks: { color: '#8b92a5', callback: function(value) { return '$' + value + 'M'; } }
-                },
-                x: {
-                    grid: { display: false, drawBorder: false },
-                    ticks: { color: '#8b92a5', maxRotation: 45, minRotation: 0 } // Prevents labels from overlapping on small screens
-                }
-            }
-        }
-    });
-});       AOS.init({ duration: 800, once: true });
+            });
+        }); AOS.init({ duration: 800, once: true });
 
-        // 2. Local Storage Email Retrieval
         document.addEventListener('DOMContentLoaded', () => {
             let userEmail = localStorage.getItem('userMail');
             if (!userEmail) {
@@ -813,8 +786,6 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('display-email').innerText = userEmail;
             document.getElementById('settings-email-display').innerText = userEmail;
         });
-
-        // 3. SPA Section Toggling Logic
         const navLinks = document.querySelectorAll('.nav-link:not(.logout-btn)');
         const sections = document.querySelectorAll('.content-section');
 
@@ -822,33 +793,33 @@ document.addEventListener("DOMContentLoaded", function() {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
 
-                // Update active state
+
                 navLinks.forEach(n => n.classList.remove('active'));
                 link.classList.add('active');
 
-                // Switch section
+
                 sections.forEach(sec => sec.classList.remove('active-sec'));
                 const targetId = link.getAttribute('data-target');
                 document.getElementById(targetId).classList.add('active-sec');
 
-                // Refresh AOS
+
                 setTimeout(() => { AOS.refresh(); }, 50);
 
-                // Close mobile sidebar
+
                 if (window.innerWidth <= 1024) {
                     document.getElementById('sidebar').classList.remove('open');
                 }
             });
         });
 
-        // 4. Mobile Toggle & Logout
+
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('open');
         }
 
         function logout() {
             localStorage.clear();
-            window.location.href = 'index.html'; // Adjust to your actual login page
+            window.location.href = 'index.html';
         }
     </script>
 </body>
