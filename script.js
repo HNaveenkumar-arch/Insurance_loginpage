@@ -37,36 +37,36 @@ function validateLogin() {
     const role = document.getElementById('role-select').value;
     const btn = document.querySelector('.login-btn');
 
-    // Get the checkbox and its error message element
+    
     const rememberMe = document.getElementById('remember-me');
     const rememberError = document.getElementById('remember-error');
 
-    // Run existing validations
+    
     const eV = validateField('login-email', 'login-email-error', emailRegex.test(email));
     const pV = validateField('login-pass', 'login-pass-error', pass.length >= 8);
 
-    // NEW: Checkbox Validation
+    
     let cV = false;
     if (!rememberMe.checked) {
-        rememberError.style.display = 'block'; // Show error
+        rememberError.style.display = 'block'; 
         cV = false;
     } else {
-        rememberError.style.display = 'none'; // Hide error
+        rememberError.style.display = 'none'; 
         cV = true;
     }
 
-    // Check if ALL validations passed (Email, Password, AND Checkbox)
+
     if (eV && pV && cV) {
         localStorage.setItem("userMail", email);
 
-        // Save email if checked
+        
         localStorage.setItem("rememberedEmail", email);
 
-        // UI Updates
+        
         btn.innerHTML = `<div class="spinner"></div> Signing In...`;
         btn.disabled = true;
 
-        // Redirect
+        
         setTimeout(() => {
             if (role == 'agent') {
                 window.location.href = 'agent-dashboard.html';
@@ -87,7 +87,7 @@ function validateSignUp() {
     const pV = validateField('reg-pass', 'reg-pass-error', pass.length >= 8);
     const cpV = validateField('reg-pass-confirm', 'reg-pass-confirm-error', confirmPass === pass && confirmPass.length > 0);
     if (nV && eV && pV && cpV) {
-        // alert("Account Securely Created!");
+
         toggleForm();
         document.getElementById('reg-name').value = '';
         document.getElementById('reg-email').value = '';
@@ -95,3 +95,24 @@ function validateSignUp() {
         document.getElementById('reg-pass-confirm').value = '';
     }
 }
+
+document.querySelectorAll('.toggle-password').forEach(icon => {
+    icon.addEventListener('click', function () {
+
+        const targetId = this.getAttribute('data-target');
+        const inputField = document.getElementById(targetId);
+
+
+        if (inputField.type === 'password') {
+            inputField.type = 'text';
+
+            this.classList.remove('fa-eye');
+            this.classList.add('fa-eye-slash');
+        } else {
+            inputField.type = 'password';
+
+            this.classList.remove('fa-eye-slash');
+            this.classList.add('fa-eye');
+        }
+    });
+});
